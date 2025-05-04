@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int               @id @default(autoincrement())
+  name             String
+  email            String            @unique
+  password         String
+  role             Role
+  createdAt        DateTime          @default(now())
+  appointments     Appointment[]
+  psychologist     Psychologist?
+  massageTherapist MassageTherapist?
+}
+
+model Appointment {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  room   Room? @relation(fields: [roomId], references: [id])
+  roomId Int?
+
+  psychologist   Psychologist? @relation(fields: [psychologistId], references: [id])
+  psychologistId Int?
+
+  massageTherapist   MassageTherapist? @relation(fields: [massageTherapistId], references: [id])
+  massageTherapistId Int?
+
+  serviceType ServiceType
+  date        DateTime
+  time        String
+  createdAt   DateTime    @default(now())
+}
+
+model Room {
+  id           Int           @id @default(autoincrement())
+  name         String
+  description  String?
+  available    Boolean       @default(true)
+  appointments Appointment[]
+}
+
+model Psychologist {
+  id           Int           @id @default(autoincrement())
+  name         String
+  userId       Int           @unique
+  user         User          @relation(fields: [userId], references: [id])
+  appointments Appointment[]
+}
+
+model MassageTherapist {
+  id           Int           @id @default(autoincrement())
+  name         String
+  userId       Int           @unique
+  user         User          @relation(fields: [userId], references: [id])
+  appointments Appointment[]
+}
+
+enum ServiceType {
+  psicologo
+  massagista
+  sala
+}
+
+enum Role {
+  admin
+  funcionario
+  psicologo
+  massagista
+}
