@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createMassageTherapist, listMassageTherapist} from "../services/massage.service";
+import { createMassageTherapist, listMassageTherapist} from "../services/massageService";
 
 export const addMassage = async (req: Request, res: Response) => {
     const { name, userId } = req.body;

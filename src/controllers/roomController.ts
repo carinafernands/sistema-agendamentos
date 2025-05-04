@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createRoom, listRooms } from "../services/room.service";
+import { createRoom, listRooms } from "../services/roomService";
 
 export const addRoom = async (req: Request, res: Response) => {
     const { name, roomId } = req.body;

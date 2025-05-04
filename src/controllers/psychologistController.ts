@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createPsychologist, listPsychologist }  from "../services/psychologist.service";
+import { createPsychologist, listPsychologist }  from "../services/psychologistService";
 
 export const addPsychologist = async (req: Request, res: Response) => {
     const {name, userId } = req.body;

@@ -8,6 +8,9 @@ router.post("/rooms",
      authenticateAdmin,
      authorizeRoles("admin"), 
      addRoom);
-router.get("/rooms", getRooms);
+router.get("/rooms",
+     authenticateAdmin, 
+     authorizeRoles("admin", "funcionario"),
+      getRooms);
 
 export default router;

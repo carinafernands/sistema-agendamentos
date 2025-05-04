@@ -8,6 +8,9 @@ router.post("/massage",
     authenticateAdmin, 
     authorizeRoles("admin"),
     addMassage);
-router.get("/massage", getMassages);
+router.get("/massage", 
+    authenticateAdmin, 
+    authorizeRoles("admin", "funcionario"),
+    getMassages);
 
 export default router;

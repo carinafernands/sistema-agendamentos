@@ -10,6 +10,9 @@ router.post("/psychologist",
      authorizeRoles("admin"),
      addPsychologist);
      
-router.get("/psychologist", getPsychologist);
+router.get("/psychologist", 
+     authenticateAdmin, 
+     authorizeRoles("admin", "funcionario"), 
+     getPsychologist);
 
 export default router;

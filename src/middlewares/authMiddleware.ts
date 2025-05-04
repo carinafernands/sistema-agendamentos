@@ -12,12 +12,6 @@ export const authenticateAdmin = (req: Request, res: Response, next: NextFunctio
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-
-        if (typeof decoded === "object" && decoded.role !== 'admin') {
-            res.status(403).json({ message: "Permissão negada" });
-            return;
-        }
-
         req.user = decoded;
         next();
     } catch (error) {
