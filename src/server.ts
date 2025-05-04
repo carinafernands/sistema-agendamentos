@@ -1,6 +1,12 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import './types/express';
+import loginRoutes from "./routes/loginRoutes";
+import psychologistRoutes from "./routes/psychologistRoutes";
+import massageRoutes from "./routes/massageRoutes";
+import roomRoutes from "./routes/roomRoutes";
+import appointmentRoutes from  "./routes/appointmentRoutes";
+import { authenticateAdmin } from "./middlewares/authMiddleware";
+
 
 const prisma = new PrismaClient();
 const app = express();
@@ -8,15 +14,12 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/users', async (req, res) =>{
-   try{
-    const users = await prisma.user.findMany();
-    res.json(users);
-   }catch(error){
-    res.status(500).json({error: 'Erro ao buscar usuário!'});
-   }
-});
+app.use("/login", loginRoutes);
+app.use("/psychologist", authenticateAdmin, psychologistRoutes);
+app.use("/massage-therapist", authenticateAdmin, massageRoutes);
+app.use("/rooms", authenticateAdmin, roomRoutes);
+app.use("/appointments", appointmentRoutes);
 
-app.listen(3000, () => {
-    console.log(`Servidor rodando na porta 3000!`);
-});
+app.listen(3000, () =>{
+    console.log("Servidor rodando na porta 3000!")
+})
