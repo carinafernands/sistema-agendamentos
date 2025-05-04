@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { addMassage, getMassages} from "../controllers/massageController";
 import { authenticateAdmin} from "../middlewares/authMiddleware";
-import { get } from "http";
-
+import { authorizeRoles } from "../middlewares/roleMiddleware";
 const router = Router();
 
-router.post("/massage", authenticateAdmin, addMassage);
+router.post("/massage", 
+    authenticateAdmin, 
+    authorizeRoles("admin"),
+    addMassage);
 router.get("/massage", getMassages);
 
 export default router;
