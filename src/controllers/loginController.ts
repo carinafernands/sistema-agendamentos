@@ -7,7 +7,8 @@ export const loginController = async (req: Request, res: Response) => {
     try{
         const token = await loginService(email, password);
         res.status(200).json({ token });
-    }catch(error){
-        res.status(401).json({message: "Erro."})
+    }catch(error: any){
+        console.error("Erro no login:", error.message);
+        res.status(401).json({message: error.message})
     }
 };

@@ -13,7 +13,10 @@ export const loginService = async (email: string, password: string): Promise<str
             throw new Error("Credenciais inválidas");
         }
 
-        const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRETE as string, {expiresIn: '1h'});
+        const token = jwt.sign
+        ({id: user.id, role: user.role},
+         process.env.JWT_SECRET as string,
+        {expiresIn: '1d'});
         return token;
 }
 

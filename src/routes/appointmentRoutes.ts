@@ -6,7 +6,7 @@ import { authorizeRoles } from "../middlewares/roleMiddleware";
 const router = Router();
 
 router.post(
-    "/appointment",
+    "/",
     authenticateAdmin, 
     authorizeRoles("funcionario"),
     addAppointment

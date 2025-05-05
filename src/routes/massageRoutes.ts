@@ -4,11 +4,11 @@ import { authenticateAdmin} from "../middlewares/authMiddleware";
 import { authorizeRoles } from "../middlewares/roleMiddleware";
 const router = Router();
 
-router.post("/massage", 
+router.post("/", 
     authenticateAdmin, 
     authorizeRoles("admin"),
     addMassage);
-router.get("/massage", 
+router.get("/", 
     authenticateAdmin, 
     authorizeRoles("admin", "funcionario"),
     getMassages);

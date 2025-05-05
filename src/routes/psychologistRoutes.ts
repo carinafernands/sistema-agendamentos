@@ -5,12 +5,12 @@ import { authorizeRoles } from "../middlewares/roleMiddleware";
 
 const router = Router();
 
-router.post("/psychologist",
+router.post("/",
      authenticateAdmin,
      authorizeRoles("admin"),
      addPsychologist);
      
-router.get("/psychologist", 
+router.get("/", 
      authenticateAdmin, 
      authorizeRoles("admin", "funcionario"), 
      getPsychologist);
